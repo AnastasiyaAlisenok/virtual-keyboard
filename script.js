@@ -36,7 +36,7 @@ const keyboard = {
   createButtons() {
     for(let i=0; i<ROWS.length; i++) {
       const button = document.createElement('button');
-      if(i>=0 && i<=12) {
+      if(i>=0 && i<=13) {
         const topLetter = document.createElement('div');
         const centerLetter = document.createElement('div');
         centerLetter.className = 'row1__center_letter';
@@ -45,6 +45,9 @@ const keyboard = {
         centerLetter.textContent = ROWS[i];
         button.append(topLetter);
         button.append(centerLetter);
+        button.className = 'row__letter';
+      } else if(i === 14 || i === 28 || i === 29 || i === 41 || i === 42 || (i >= 55 && i <= 61)) {
+        button.textContent = ROWS[i];
         button.className = 'row__letter';
       } else if( i === 54) {
         button.className = 'row__letter';
@@ -59,27 +62,27 @@ const keyboard = {
         button.className = 'row__letter';
         button.classList.add('right');
       } else {
-        button.textContent = ROWS[i];
+        button.textContent = ROWS[i].toLowerCase();
         button.className = 'row__letter';
+        button.classList.add('letter');
       }
       if(i >= 56) {
         button.classList.add('row5__letter');
       }
+
       switch(button.textContent) {
         case 'Backspace': 
           button.addEventListener('click', () => {
-            console.log(this.properties.value);
-            console.log(this.elements.textarea.textContent)
             this.properties.value = this.properties.value.substring(0, this.properties.value.length-1);
             this.elements.textarea.value = this.properties.value;
-            
           })
           break;
-    
+
           case 'CAPS LOCK':
           button.addEventListener('click', () => {
-            button.classList.toggle(this.properties.capsLock);
             this.toggleCapsLock();
+            button.classList.toggle('caps', this.properties.capsLock);
+            
           })
           break;
     
@@ -127,15 +130,22 @@ const keyboard = {
   }
   },
   toggleCapsLock() {
+      const letters = document.querySelectorAll('.letter');
       this.properties.capsLock = ! this.properties.capsLock;
+
+      for(const button of letters) {
+        if(button.childElementCount === 0) {
+          button.textContent = this.properties.capsLock ? button.textContent.toUpperCase() :  button.textContent.toLowerCase();
+        }
+      }
+
   },
   clickPhisicalKeyboard() {
     document.addEventListener('keydown', (event) => {
       const buttons = document.querySelectorAll('.row__letter');
       const centerButtons = document.querySelectorAll('.row1__center_letter');
-      const letter = Array.from(buttons).find(item => item.innerHTML === event.key.toLocaleUpperCase());
-      const number = Array.from(centerButtons).find(item => item.textContent === event.key.toLocaleUpperCase());
-      console.log(event.code)
+      const letter = this.properties.capsLock ? Array.from(buttons).find(item => item.innerHTML === event.key) : Array.from(buttons).find(item => item.innerHTML === event.key.toLowerCase());
+      const number = Array.from(centerButtons).find(item => item.textContent === event.key.toUpperCase());
 
      if(event.key === 'Backspace') {
        this.properties.value = this.properties.value.substring(0, keyboard.properties.value.length-1);
@@ -182,12 +192,24 @@ const keyboard = {
       } else if(event.code === 'Space') {
         this.properties.value += ` `;
         buttons.forEach(item => item.textContent === 'SPACE'? item.classList.add('active') : 0)
+      } else if(event.key === 'CapsLock') {
+        if(this.properties.capsLock) {
+          this.toggleCapsLock();
+          buttons.forEach(item => item.textContent === 'CAPS LOCK'? item.classList.toggle('caps', this.properties.capsLock) : 0);
+        } else {
+          this.toggleCapsLock();
+          buttons.forEach(item => item.textContent === 'CAPS LOCK'? item.classList.toggle('caps', this.properties.capsLock) : 0);
+        }
       } else if(number !== undefined && event.key === number.textContent ) {
-       buttons.forEach(item => item.textContent[1] === event.key.toUpperCase() ? item.classList.add('active') : 0);
+       buttons.forEach(item => item.textContent[1] === event.key ? item.classList.add('active') : 0);
        this.properties.value += number.textContent;
-     } else if(letter !== undefined && event.key === letter.textContent.toLocaleLowerCase()) {
-       buttons.forEach(item => item.textContent === event.key.toUpperCase() ? item.classList.add('active') : 0);
-       this.properties.value += letter.textContent.toLocaleLowerCase();
+     } else if(letter !== undefined && (event.key.toLowerCase() === letter.textContent || event.key === letter.textContent)) {
+      if(this.properties.capsLock) {
+        buttons.forEach(item => item.textContent === event.key ? item.classList.add('active') : 0);
+      } else {
+        buttons.forEach(item => item.textContent === event.key.toLowerCase() ? item.classList.add('active') : 0);
+      }
+       this.properties.value += letter.textContent;
      }
        buttons.forEach(item => item.addEventListener('animationend', () => {
            item.classList.remove('active');
