@@ -39,6 +39,7 @@ const keyboard = {
       if(i>=0 && i<=12) {
         const topLetter = document.createElement('div');
         const centerLetter = document.createElement('div');
+        centerLetter.className = 'row1__center_letter';
         topLetter.className = 'row1__top_letter';
         topLetter.textContent = ROW1_TOP[i];
         centerLetter.textContent = ROWS[i];
@@ -67,8 +68,11 @@ const keyboard = {
       switch(button.textContent) {
         case 'Backspace': 
           button.addEventListener('click', () => {
+            console.log(this.properties.value);
+            console.log(this.elements.textarea.textContent)
             this.properties.value = this.properties.value.substring(0, this.properties.value.length-1);
-            this.elements.textarea.textContent = this.properties.value;
+            this.elements.textarea.value = this.properties.value;
+            
           })
           break;
     
@@ -82,21 +86,39 @@ const keyboard = {
           case 'SPACE':
           button.addEventListener('click', () => {
             this.properties.value += ` `;
-            this.elements.textarea.textContent = this.properties.value;
+            this.elements.textarea.value = this.properties.value;
           })
           break;
 
           case 'ENTER':
           button.addEventListener('click', () => {
             this.properties.value += '\n';
-            this.elements.textarea.textContent = this.properties.value;
+            this.elements.textarea.value = this.properties.value;
+          })
+          break;
+
+          case 'CTRL':
+          button.addEventListener('click', () => {
+            return
+          })
+          break;
+
+          case 'SHIFT':
+          button.addEventListener('click', () => {
+            return
+          })
+          break;
+
+          case 'ALT':
+          button.addEventListener('click', () => {
+            return
           })
           break;
     
           default:
           button.addEventListener('click', () => {
             this.properties.value += this.properties.capsLock ? button.textContent.toUpperCase() : button.textContent.toLowerCase();
-            this.elements.textarea.textContent = this.properties.value;
+            this.elements.textarea.value = this.properties.value;
           })
           break;
       }
@@ -107,13 +129,81 @@ const keyboard = {
   toggleCapsLock() {
       this.properties.capsLock = ! this.properties.capsLock;
   },
+  clickPhisicalKeyboard() {
+    document.addEventListener('keydown', (event) => {
+      const buttons = document.querySelectorAll('.row__letter');
+      const centerButtons = document.querySelectorAll('.row1__center_letter');
+      const letter = Array.from(buttons).find(item => item.innerHTML === event.key.toLocaleUpperCase());
+      const number = Array.from(centerButtons).find(item => item.textContent === event.key.toLocaleUpperCase());
+      console.log(event.code)
 
- 
+     if(event.key === 'Backspace') {
+       this.properties.value = this.properties.value.substring(0, keyboard.properties.value.length-1);
+       buttons.forEach(item => item.textContent === 'Backspace'? item.classList.add('active') : 0)
+     } else if(event.key === 'Enter') {
+       this.properties.value += '\n';
+       buttons.forEach(item => item.textContent === 'ENTER'? item.classList.add('active') : 0)
+     } else if(event.code === 'ControlLeft') {
+      for(let i=0; i<buttons.length; i++) {
+        if(i === 56 && buttons[i].textContent === 'CTRL') {
+          buttons[i].classList.add('active')
+        }
+      }
+     } else if(event.code === 'ControlRight') {
+      for(let i=0; i<buttons.length; i++) {
+        if(i === 61 && buttons[i].textContent === 'CTRL') {
+          buttons[i].classList.add('active')
+        }
+      }
+     } else if(event.code === 'AltLeft') {
+      for(let i=0; i<buttons.length; i++) {
+        if(i === 58 && buttons[i].textContent === 'ALT') {
+          buttons[i].classList.add('active')
+        }
+      }
+     } else if(event.code === 'AltRight') {
+      for(let i=0; i<buttons.length; i++) {
+        if(i === 60 && buttons[i].textContent === 'ALT') {
+          buttons[i].classList.add('active')
+        }
+      }
+     } else if(event.code === 'ShiftLeft') {
+      for(let i=0; i<buttons.length; i++) {
+        if(i === 42 && buttons[i].textContent === 'SHIFT') {
+          buttons[i].classList.add('active')
+        }
+      }
+      } else if(event.code === 'ShiftRight') {
+        for(let i=0; i<buttons.length; i++) {
+          if(i === 55 && buttons[i].textContent === 'SHIFT') {
+            buttons[i].classList.add('active')
+          }
+        }
+      } else if(event.code === 'Space') {
+        this.properties.value += ` `;
+        buttons.forEach(item => item.textContent === 'SPACE'? item.classList.add('active') : 0)
+      } else if(number !== undefined && event.key === number.textContent ) {
+       buttons.forEach(item => item.textContent[1] === event.key.toUpperCase() ? item.classList.add('active') : 0);
+       this.properties.value += number.textContent;
+     } else if(letter !== undefined && event.key === letter.textContent.toLocaleLowerCase()) {
+       buttons.forEach(item => item.textContent === event.key.toUpperCase() ? item.classList.add('active') : 0);
+       this.properties.value += letter.textContent.toLocaleLowerCase();
+     }
+       buttons.forEach(item => item.addEventListener('animationend', () => {
+           item.classList.remove('active');
+     }, false))
+     })
+  }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
   keyboard.init()
   keyboard.createButtons()
+  keyboard.clickPhisicalKeyboard()
 })
 
+
+
+
 console.log(keyboard)
+console.log(keyboard.properties)
