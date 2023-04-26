@@ -88,6 +88,15 @@ class Keyboard {
           });
           break;
 
+        case 'DEL':
+          button.addEventListener('click', () => {
+            this.value = this.textarea.value.slice(0, this.textarea.selectionStart)
+            + this.textarea.value
+              .slice(this.textarea.selectionStart + 1, this.textarea.value.length);
+            this.textarea.value = this.value;
+          });
+          break;
+
         case 'CTRL':
           button.addEventListener('click', () => { });
           break;
@@ -184,6 +193,11 @@ class Keyboard {
       } else if (event.key === 'Tab') {
         buttons.forEach((item) => (item.textContent === event.key.toUpperCase() ? item.classList.add('active') : 0));
         this.value += '    ';
+      } else if (event.code === 'Delete') {
+        this.value = this.textarea.value.slice(0, this.textarea.selectionStart)
+            + this.textarea.value
+              .slice(this.textarea.selectionStart + 1, this.textarea.value.length);
+        buttons.forEach((item) => (item.textContent === 'DEL' ? item.classList.add('active') : 0));
       } else if (letter !== undefined && (event.key.toLowerCase() === letter.textContent
       || event.key === letter.textContent || event.key === letter.textContent.toLowerCase())) {
         if (this.capsLock) {
