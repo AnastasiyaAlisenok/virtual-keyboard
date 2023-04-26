@@ -221,4 +221,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const keyboard = new Keyboard();
   keyboard.init();
   keyboard.clickPhisicalKeyboard();
+  document.querySelector('.keyboard').addEventListener('click', () => {
+    document.querySelector('.text').focus();
+  });
 });
