@@ -84,8 +84,9 @@ body {
   width: 200px;
   font-size: 26px;
 }
-.row__letter:nth-child(56) {
-  font-size: 16px;
+.row__letter:nth-child(55) {
+  width: 140px;
+  font-size: 26px;
   margin-right: 0;
 }
 .up::after {
@@ -111,17 +112,13 @@ body {
   border-radius: 10px;
   font-size: 18px;
 }
-.row__letter:nth-child(57) {
-  width: 120px;
+.row__letter:nth-child(56) {
   font-size: 18px;
 }
-.row__letter:nth-child(60) {
-  width: 520px;
+.row__letter:nth-child(59) {
+  width: 600px;
 }
-.row__letter:nth-child(62) {
-  width: 80px;
-}
-.row__letter:nth-child(65) {
+.row__letter:nth-child(64) {
   margin-right: 0;
 }
 .row__letter:active {
