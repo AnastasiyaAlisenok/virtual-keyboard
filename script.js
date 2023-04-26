@@ -91,6 +91,13 @@ class Keyboard {
           });
           break;
 
+        case 'TAB':
+          button.addEventListener('click', () => {
+            this.value += '    ';
+            this.textarea.value = this.value;
+          });
+          break;
+
         case 'CTRL':
           button.addEventListener('click', () => { });
           break;
@@ -131,6 +138,7 @@ class Keyboard {
 
   clickPhisicalKeyboard() {
     document.addEventListener('keydown', (event) => {
+      event.preventDefault();
       const buttons = document.querySelectorAll('.row__letter');
       const centerButtons = document.querySelectorAll('.row1__center_letter');
       const letter = this.capsLock ? Array.from(buttons)
@@ -192,6 +200,9 @@ class Keyboard {
           this.toggleCapsLock();
           buttons.forEach((item) => (item.textContent === 'CAPS LOCK' ? item.classList.toggle('caps', this.capsLock) : 0));
         }
+      } else if (event.key === 'Tab') {
+        buttons.forEach((item) => (item.textContent === event.key.toUpperCase() ? item.classList.add('active') : 0));
+        this.value += '    ';
       } else if (number !== undefined && event.key === number.textContent) {
         buttons.forEach((item) => (item.textContent[1] === event.key ? item.classList.add('active') : 0));
         this.value += number.textContent;
@@ -204,6 +215,7 @@ class Keyboard {
         }
         this.value += letter.textContent;
       }
+      this.textarea.value = this.value;
       buttons.forEach((item) => item.addEventListener('animationend', () => {
         item.classList.remove('active');
       }, false));
