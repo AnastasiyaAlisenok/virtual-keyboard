@@ -126,19 +126,5 @@ body {
     box-shadow: 0 5px 10px rgb(207, 204, 5);
 }*/
 .active {
-  animation: pulse 0.5s ease;
-}
-.active-shift {
-  background-color: rgba(0,255,255,0.7);
-}
-@keyframes pulse {
-  from {
-    background-color: rgb(36, 36, 36);
-  }
-  to {
-    background-color: rgba(0,255,255,0.7);
-  }
-}
-.caps {
   background-color: rgba(0,255,255,0.7);
 }

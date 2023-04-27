@@ -34,113 +34,89 @@ class Keyboard {
       if (i === 13 || i === 14 || i === 28 || i === 29
         || i === 41 || i === 42 || i === 63 || (i >= 54 && i <= 59)) {
         button.textContent = this.ROWS[i];
-        button.className = 'row__letter';
       } else if (i === 53) {
-        button.className = 'row__letter';
         button.classList.add('up');
       } else if (i === 60) {
-        button.className = 'row__letter';
         button.classList.add('left');
       } else if (i === 61) {
-        button.className = 'row__letter';
         button.classList.add('down');
       } else if (i === 62) {
-        button.className = 'row__letter';
         button.classList.add('right');
       } else {
         button.textContent = this.ROWS[i].toLowerCase();
-        button.className = 'row__letter';
         button.classList.add('letter');
       }
+      button.classList.add('row__letter');
       if (i >= 55) {
         button.classList.add('row5__letter');
       }
 
       switch (button.textContent) {
         case 'Backspace':
-          button.addEventListener('click', () => {
+          button.addEventListener('mousedown', () => {
             button.classList.add('active');
             this.value = this.value.substring(0, this.value.length - 1);
             this.textarea.value = this.value;
-          });
-          button.addEventListener('animationend', () => {
-            button.classList.remove('active');
           });
           break;
 
         case 'CAPS LOCK':
           button.addEventListener('click', () => {
-            button.classList.add('active');
             this.toggleCapsLock();
-            button.classList.toggle('caps', this.capsLock);
+            button.classList.toggle('active', this.capsLock);
           });
           break;
 
         case 'SPACE':
-          button.addEventListener('click', () => {
+          button.addEventListener('mousedown', () => {
             button.classList.add('active');
             this.value += ' ';
             this.textarea.value = this.value;
           });
-          button.addEventListener('animationend', () => {
-            button.classList.remove('active');
-          });
           break;
 
         case 'ENTER':
-          button.addEventListener('click', () => {
+          button.addEventListener('mousedown', () => {
             button.classList.add('active');
             this.value += '\n';
             this.textarea.value = this.value;
           });
-          button.addEventListener('animationend', () => {
-            button.classList.remove('active');
-          });
           break;
 
         case 'TAB':
-          button.addEventListener('click', () => {
+          button.addEventListener('mousedown', () => {
             button.classList.add('active');
             this.value += '    ';
             this.textarea.value = this.value;
           });
-          button.addEventListener('animationend', () => {
-            button.classList.remove('active');
-          });
           break;
 
         case 'DEL':
-          button.addEventListener('click', () => {
+          button.addEventListener('mousedown', () => {
             button.classList.add('active');
             this.value = this.textarea.value.slice(0, this.textarea.selectionStart)
             + this.textarea.value
               .slice(this.textarea.selectionStart + 1, this.textarea.value.length);
             this.textarea.value = this.value;
           });
-          button.addEventListener('animationend', () => {
-            button.classList.remove('active');
-          });
           break;
 
         case 'CTRL':
-          button.addEventListener('click', () => {
+          button.addEventListener('mousedown', () => {
             button.classList.add('active');
-          });
-          button.addEventListener('animationend', () => {
-            button.classList.remove('active');
           });
           break;
 
         case 'SHIFT':
           button.addEventListener('mousedown', () => {
-            button.classList.add('active-shift');
+            button.classList.add('active');
             const buttons = document.querySelectorAll('.row__letter');
             for (let j = 0; j < buttons.length; j += 1) {
               buttons[j].textContent = this.ROWS_SHIFT[j];
             }
           });
           button.addEventListener('mouseup', () => {
-            button.classList.remove('active-shift');
+            button.classList.remove('active');
             const buttons = document.querySelectorAll('.row__letter');
             for (let j = 0; j < buttons.length; j += 1) {
               if (j === 13 || j === 14 || j === 28 || j === 29
@@ -154,16 +130,13 @@ class Keyboard {
           break;
 
         case 'ALT':
-          button.addEventListener('click', () => {
+          button.addEventListener('mousedown', () => {
             button.classList.add('active');
-          });
-          button.addEventListener('animationend', () => {
-            button.classList.remove('active');
           });
           break;
 
         default:
-          button.addEventListener('click', (event) => {
+          button.addEventListener('mousedown', (event) => {
             button.classList.add('active');
             if (event.shiftKey) {
               this.value += button.textContent;
@@ -173,11 +146,11 @@ class Keyboard {
             }
             this.textarea.value = this.value;
           });
-          button.addEventListener('animationend', () => {
-            button.classList.remove('active');
-          });
           break;
       }
+      button.addEventListener('mouseup', () => {
+        button.classList.remove('active');
+      });
       this.rows.append(button);
     }
     this.main.append(this.rows);
@@ -236,14 +209,14 @@ class Keyboard {
       } else if (event.code === 'ShiftLeft') {
         for (let i = 0; i < buttons.length; i += 1) {
           if (i === 42 && buttons[i].textContent === 'SHIFT') {
-            buttons[i].classList.add('active-shift');
+            buttons[i].classList.add('active');
           }
           buttons[i].textContent = this.ROWS_SHIFT[i];
         }
       } else if (event.code === 'ShiftRight') {
         for (let i = 0; i < buttons.length; i += 1) {
           if (i === 54 && buttons[i].textContent === 'SHIFT') {
-            buttons[i].classList.add('active-shift');
+            buttons[i].classList.add('active');
           }
           buttons[i].textContent = this.ROWS_SHIFT[i];
         }
@@ -252,7 +225,7 @@ class Keyboard {
         buttons.forEach((item) => (item.textContent === 'SPACE' ? item.classList.add('active') : 0));
       } else if (event.key === 'CapsLock') {
         this.toggleCapsLock();
-        buttons.forEach((item) => (item.textContent === 'CAPS LOCK' ? item.classList.toggle('caps', this.capsLock) : 0));
+        buttons.forEach((item) => (item.textContent === 'CAPS LOCK' ? item.classList.toggle('active', this.capsLock) : 0));
       } else if (event.key === 'Tab') {
         buttons.forEach((item) => (item.textContent === event.key.toUpperCase() ? item.classList.add('active') : 0));
         this.value += '    ';
@@ -288,7 +261,7 @@ class Keyboard {
       if (event.key === 'Shift') {
         for (let i = 0; i < buttons.length; i += 1) {
           if (buttons[i].textContent === 'SHIFT') {
-            buttons[i].classList.remove('active-shift');
+            buttons[i].classList.remove('active');
           }
           if (i === 13 || i === 14 || i === 28 || i === 29
             || i === 41 || i === 42 || i === 63 || (i >= 54 && i <= 59)) {
@@ -297,6 +270,8 @@ class Keyboard {
             buttons[i].textContent = this.ROWS[i].toLowerCase();
           }
         }
+      } else {
+        buttons.forEach((item) => (item.textContent !== 'CAPS LOCK' ? item.classList.remove('active') : 0));
       }
     });
   }
