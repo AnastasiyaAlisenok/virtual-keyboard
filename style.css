@@ -121,10 +121,13 @@ body {
 .row__letter:nth-child(64) {
   margin-right: 0;
 }
-/*.row__letter:active {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 10px rgb(207, 204, 5);
-}*/
 .active {
   background-color: rgba(0,255,255,0.7);
+}
+p {
+  color: black;
+  font-size: 32px;
+  margin-top: 60px;
+  text-align: justify;
+  line-height: 130%;
 }
