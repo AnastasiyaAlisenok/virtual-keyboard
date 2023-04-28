@@ -3,10 +3,10 @@ const body = document.querySelector('body');
 
 class Keyboard {
   constructor() {
-    this.ROWS = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'TAB', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'DEL', 'CAPS LOCK', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", 'ENTER', 'SHIFT', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
-    this.ROWS_SHIFT = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace', 'TAB', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|', 'DEL', 'CAPS LOCK', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', 'ENTER', 'SHIFT', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
-    this.rusRows = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'TAB', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '|', 'DEL', 'CAPS LOCK', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'ENTER', 'SHIFT', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
-    this.RUS_ROWS_SHIFT = ['ё', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace', 'TAB', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '|', 'DEL', 'CAPS LOCK', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'ENTER', 'SHIFT', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', ',', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
+    this.ROWS = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'BACKSPACE', 'TAB', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'DEL', 'CAPS LOCK', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'", 'ENTER', 'SHIFT', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
+    this.ROWS_SHIFT = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'BACKSPACE', 'TAB', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '{', '}', '|', 'DEL', 'CAPS LOCK', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ':', '"', 'ENTER', 'SHIFT', 'z', 'x', 'c', 'v', 'b', 'n', 'm', '<', '>', '?', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
+    this.rusRows = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'BACKSPACE', 'TAB', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '|', 'DEL', 'CAPS LOCK', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'ENTER', 'SHIFT', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
+    this.RUS_ROWS_SHIFT = ['ё', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'BACKSPACE', 'TAB', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '|', 'DEL', 'CAPS LOCK', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'ENTER', 'SHIFT', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', ',', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
     this.textarea = null;
     this.main = null;
     this.rows = null;
@@ -45,7 +45,7 @@ class Keyboard {
       } else if (i === 62) {
         button.classList.add('right');
       } else {
-        button.textContent = this.ROWS[i].toLowerCase();
+        button.textContent = this.ROWS[i];
         button.classList.add('letter');
       }
       button.classList.add('row__letter');
@@ -54,7 +54,7 @@ class Keyboard {
       }
 
       switch (button.textContent) {
-        case 'Backspace':
+        case 'BACKSPACE':
           button.addEventListener('mousedown', () => {
             button.classList.add('active');
             this.value = this.value.substring(0, this.value.length - 1);
@@ -115,9 +115,11 @@ class Keyboard {
             const buttons = document.querySelectorAll('.row__letter');
             for (let j = 0; j < buttons.length; j += 1) {
               if (this.lang === 'en') {
-                buttons[j].textContent = this.ROWS_SHIFT[j];
+                buttons[j].textContent = this.capsLock
+                  ? this.ROWS_SHIFT[j] : this.ROWS_SHIFT[j].toUpperCase();
               } else {
-                buttons[j].textContent = this.RUS_ROWS_SHIFT[j].toUpperCase();
+                buttons[j].textContent = this.capsLock
+                  ? this.RUS_ROWS_SHIFT[j] : this.RUS_ROWS_SHIFT[j].toUpperCase();
               }
             }
           });
@@ -126,14 +128,10 @@ class Keyboard {
             const buttons = document.querySelectorAll('.row__letter');
             for (let j = 0; j < buttons.length; j += 1) {
               if (this.lang === 'en') {
-                if (j === 13 || j === 14 || j === 28 || j === 29
-                  || j === 41 || j === 42 || j === 63 || (j >= 54 && j <= 59)) {
-                  buttons[j].textContent = this.ROWS[j];
-                } else {
-                  buttons[j].textContent = this.ROWS[j].toLowerCase();
-                }
+                buttons[j].textContent = this.capsLock ? this.ROWS[j].toUpperCase() : this.ROWS[j];
               } else {
-                buttons[j].textContent = this.rusRows[j];
+                buttons[j].textContent = this.capsLock
+                  ? this.rusRows[j].toUpperCase() : this.rusRows[j];
               }
             }
           });
@@ -152,7 +150,7 @@ class Keyboard {
               this.value += button.textContent;
             } else {
               this.value += this.capsLock ? button.textContent.toUpperCase()
-                : button.textContent.toLowerCase();
+                : button.textContent;
             }
             this.textarea.value = this.value;
           });
@@ -189,7 +187,7 @@ class Keyboard {
 
       if (event.key === 'Backspace') {
         this.value = this.value.substring(0, this.value.length - 1);
-        buttons.forEach((item) => (item.textContent === 'Backspace' ? item.classList.add('active') : 0));
+        buttons.forEach((item) => (item.textContent === 'BACKSPACE' ? item.classList.add('active') : 0));
       } else if (event.key === 'Enter') {
         this.value += '\n';
         buttons.forEach((item) => (item.textContent === 'ENTER' ? item.classList.add('active') : 0));
@@ -223,9 +221,11 @@ class Keyboard {
             buttons[i].classList.add('active');
           }
           if (this.lang === 'en') {
-            buttons[i].textContent = this.ROWS_SHIFT[i];
+            buttons[i].textContent = this.capsLock
+              ? this.ROWS_SHIFT[i] : this.ROWS_SHIFT[i].toUpperCase();
           } else {
-            buttons[i].textContent = this.RUS_ROWS_SHIFT[i].toUpperCase();
+            buttons[i].textContent = this.capsLock
+              ? this.RUS_ROWS_SHIFT[i] : this.RUS_ROWS_SHIFT[i].toUpperCase();
           }
         }
       } else if (event.code === 'ShiftRight') {
@@ -234,9 +234,11 @@ class Keyboard {
             buttons[i].classList.add('active');
           }
           if (this.lang === 'en') {
-            buttons[i].textContent = this.ROWS_SHIFT[i];
+            buttons[i].textContent = this.capsLock
+              ? this.ROWS_SHIFT[i] : this.ROWS_SHIFT[i].toUpperCase();
           } else {
-            buttons[i].textContent = this.RUS_ROWS_SHIFT[i].toUpperCase();
+            buttons[i].textContent = this.capsLock
+              ? this.RUS_ROWS_SHIFT[i] : this.RUS_ROWS_SHIFT[i].toUpperCase();
           }
         }
       } else if (event.code === 'Space') {
@@ -257,7 +259,7 @@ class Keyboard {
       || event.key === letter.textContent || event.key === letter.textContent.toLowerCase())) {
         if (this.capsLock) {
           buttons.forEach((item) => (item.textContent === event.key
-            || item.textContent.toLowerCase() === event.key
+            || item.textContent.toUpperCase() === event.key
             ? item.classList.add('active') : 0));
         } else {
           buttons.forEach((item) => (item.textContent === event.key.toLowerCase() ? item.classList.add('active') : 0));
@@ -283,14 +285,10 @@ class Keyboard {
             buttons[i].classList.remove('active');
           }
           if (this.lang === 'en') {
-            if (i === 13 || i === 14 || i === 28 || i === 29
-              || i === 41 || i === 42 || i === 63 || (i >= 54 && i <= 59)) {
-              buttons[i].textContent = this.ROWS[i];
-            } else {
-              buttons[i].textContent = this.ROWS[i].toLowerCase();
-            }
+            buttons[i].textContent = this.capsLock ? this.ROWS[i].toUpperCase() : this.ROWS[i];
           } else {
-            buttons[i].textContent = this.rusRows[i];
+            buttons[i].textContent = this.capsLock
+              ? this.rusRows[i].toUpperCase() : this.rusRows[i];
           }
         }
       } else {
@@ -305,17 +303,13 @@ class Keyboard {
       if (event.altKey && event.ctrlKey) {
         if (this.lang === 'en') {
           for (let i = 0; i < buttons.length; i += 1) {
-            buttons[i].textContent = this.rusRows[i];
+            buttons[i].textContent = this.capsLock
+              ? this.rusRows[i].toUpperCase() : this.rusRows[i];
           }
           this.lang = 'ru';
         } else {
           for (let i = 0; i < buttons.length; i += 1) {
-            if (i === 13 || i === 14 || i === 28 || i === 29
-              || i === 41 || i === 42 || i === 63 || (i >= 54 && i <= 59)) {
-              buttons[i].textContent = this.ROWS[i];
-            } else {
-              buttons[i].textContent = this.ROWS[i].toLowerCase();
-            }
+            buttons[i].textContent = this.capsLock ? this.ROWS[i].toUpperCase() : this.ROWS[i];
           }
           this.lang = 'en';
         }
