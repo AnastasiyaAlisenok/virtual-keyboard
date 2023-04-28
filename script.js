@@ -5,13 +5,15 @@ class Keyboard {
   constructor() {
     this.ROWS = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'TAB', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '[', ']', '\\', 'DEL', 'CAPS LOCK', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ';', "'", 'ENTER', 'SHIFT', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', ',', '.', '/', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
     this.ROWS_SHIFT = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace', 'TAB', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|', 'DEL', 'CAPS LOCK', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"', 'ENTER', 'SHIFT', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
-    this.rusRows = ['ё', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.'];
+    this.rusRows = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace', 'TAB', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '|', 'DEL', 'CAPS LOCK', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'ENTER', 'SHIFT', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
+    this.RUS_ROWS_SHIFT = ['ё', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace', 'TAB', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '|', 'DEL', 'CAPS LOCK', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'ENTER', 'SHIFT', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', ',', '', 'SHIFT', 'CTRL', 'WIN', 'ALT', 'SPACE', 'ALT', '', '', '', 'CTRL'];
     this.textarea = null;
     this.main = null;
     this.rows = null;
     this.button = null;
     this.value = '';
     this.capsLock = false;
+    this.lang = null;
   }
 
   init() {
@@ -112,18 +114,26 @@ class Keyboard {
             button.classList.add('active');
             const buttons = document.querySelectorAll('.row__letter');
             for (let j = 0; j < buttons.length; j += 1) {
-              buttons[j].textContent = this.ROWS_SHIFT[j];
+              if (this.lang === 'en') {
+                buttons[j].textContent = this.ROWS_SHIFT[j];
+              } else {
+                buttons[j].textContent = this.RUS_ROWS_SHIFT[j].toUpperCase();
+              }
             }
           });
           button.addEventListener('mouseup', () => {
             button.classList.remove('active');
             const buttons = document.querySelectorAll('.row__letter');
             for (let j = 0; j < buttons.length; j += 1) {
-              if (j === 13 || j === 14 || j === 28 || j === 29
-                || j === 41 || j === 42 || j === 63 || (j >= 54 && j <= 59)) {
-                buttons[j].textContent = this.ROWS[j];
+              if (this.lang === 'en') {
+                if (j === 13 || j === 14 || j === 28 || j === 29
+                  || j === 41 || j === 42 || j === 63 || (j >= 54 && j <= 59)) {
+                  buttons[j].textContent = this.ROWS[j];
+                } else {
+                  buttons[j].textContent = this.ROWS[j].toLowerCase();
+                }
               } else {
-                buttons[j].textContent = this.ROWS[j].toLowerCase();
+                buttons[j].textContent = this.rusRows[j];
               }
             }
           });
@@ -154,6 +164,7 @@ class Keyboard {
       this.rows.append(button);
     }
     this.main.append(this.rows);
+    this.lang = 'en';
   }
 
   toggleCapsLock() {
@@ -211,14 +222,22 @@ class Keyboard {
           if (i === 42 && buttons[i].textContent === 'SHIFT') {
             buttons[i].classList.add('active');
           }
-          buttons[i].textContent = this.ROWS_SHIFT[i];
+          if (this.lang === 'en') {
+            buttons[i].textContent = this.ROWS_SHIFT[i];
+          } else {
+            buttons[i].textContent = this.RUS_ROWS_SHIFT[i].toUpperCase();
+          }
         }
       } else if (event.code === 'ShiftRight') {
         for (let i = 0; i < buttons.length; i += 1) {
           if (i === 54 && buttons[i].textContent === 'SHIFT') {
             buttons[i].classList.add('active');
           }
-          buttons[i].textContent = this.ROWS_SHIFT[i];
+          if (this.lang === 'en') {
+            buttons[i].textContent = this.ROWS_SHIFT[i];
+          } else {
+            buttons[i].textContent = this.RUS_ROWS_SHIFT[i].toUpperCase();
+          }
         }
       } else if (event.code === 'Space') {
         this.value += ' ';
@@ -263,11 +282,15 @@ class Keyboard {
           if (buttons[i].textContent === 'SHIFT') {
             buttons[i].classList.remove('active');
           }
-          if (i === 13 || i === 14 || i === 28 || i === 29
-            || i === 41 || i === 42 || i === 63 || (i >= 54 && i <= 59)) {
-            buttons[i].textContent = this.ROWS[i];
+          if (this.lang === 'en') {
+            if (i === 13 || i === 14 || i === 28 || i === 29
+              || i === 41 || i === 42 || i === 63 || (i >= 54 && i <= 59)) {
+              buttons[i].textContent = this.ROWS[i];
+            } else {
+              buttons[i].textContent = this.ROWS[i].toLowerCase();
+            }
           } else {
-            buttons[i].textContent = this.ROWS[i].toLowerCase();
+            buttons[i].textContent = this.rusRows[i];
           }
         }
       } else {
@@ -277,19 +300,27 @@ class Keyboard {
   }
 
   switchLanguage() {
-    const letters = document.querySelectorAll('.letter');
-
-    for (let i = 0; i < letters.length; i += 1) {
-      if ((i < 1 || i > 12) && i !== 25) {
-        letters[i].classList.add('translate');
+    document.addEventListener('keydown', (event) => {
+      const buttons = document.querySelectorAll('.row__letter');
+      if (event.altKey && event.ctrlKey) {
+        if (this.lang === 'en') {
+          for (let i = 0; i < buttons.length; i += 1) {
+            buttons[i].textContent = this.rusRows[i];
+          }
+          this.lang = 'ru';
+        } else {
+          for (let i = 0; i < buttons.length; i += 1) {
+            if (i === 13 || i === 14 || i === 28 || i === 29
+              || i === 41 || i === 42 || i === 63 || (i >= 54 && i <= 59)) {
+              buttons[i].textContent = this.ROWS[i];
+            } else {
+              buttons[i].textContent = this.ROWS[i].toLowerCase();
+            }
+          }
+          this.lang = 'en';
+        }
       }
-    }
-
-    const lettersTranslate = document.querySelectorAll('.translate');
-
-    for (let i = 0; i < lettersTranslate.length; i += 1) {
-      lettersTranslate[i].textContent = this.rusRows[i];
-    }
+    });
   }
 }
 
@@ -298,6 +329,7 @@ window.addEventListener('DOMContentLoaded', () => {
   keyboard.init();
   keyboard.addButtons();
   keyboard.clickPhisicalKeyboard();
+  keyboard.switchLanguage();
   document.querySelector('.keyboard').addEventListener('click', () => {
     document.querySelector('.text').focus();
   });
