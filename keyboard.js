@@ -188,7 +188,7 @@ export default class Keyboard {
       if (event.key === 'Backspace') {
         event.preventDefault();
         this.value = this.value.substring(0, this.value.length - 1);
-        this.button.forEach((item) => (item.textContent === 'BACKSPACE' ? item.classList.add('active') : 0));
+        buttons.forEach((item) => (item.textContent === 'BACKSPACE' ? item.classList.add('active') : 0));
       } else if (event.key === 'Enter') {
         event.preventDefault();
         this.value += '\n';
