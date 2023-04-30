@@ -78,7 +78,7 @@ export default class Keyboard {
         case 'ENTER':
           button.addEventListener('mousedown', () => {
             button.classList.add('active');
-            this.value += '\n';
+            this.value = `${this.value.slice(0, this.textarea.selectionStart)}\n${this.value.slice(this.textarea.selectionStart + 1, this.value.length)}`;
             this.textarea.value = this.value;
           });
           break;
@@ -191,7 +191,7 @@ export default class Keyboard {
         buttons.forEach((item) => (item.textContent === 'BACKSPACE' ? item.classList.add('active') : 0));
       } else if (event.key === 'Enter') {
         event.preventDefault();
-        this.value += '\n';
+        this.value = `${this.value.slice(0, this.textarea.selectionStart)}\n${this.value.slice(this.textarea.selectionStart + 1, this.value.length)}`;
         buttons.forEach((item) => (item.textContent === 'ENTER' ? item.classList.add('active') : 0));
       } else if (event.code === 'ControlLeft') {
         for (let i = 0; i < buttons.length; i += 1) {
