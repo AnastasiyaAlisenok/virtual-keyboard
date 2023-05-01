@@ -19,7 +19,7 @@ export default class Keyboard {
 
   init() {
     this.textarea = document.createElement('textarea');
-    this.textarea.rows = 8;
+    this.textarea.rows = 6;
     this.textarea.className = 'text';
     body.append(this.textarea);
 
