@@ -113,10 +113,10 @@ export default class Keyboard {
             const buttons = document.querySelectorAll('.row__letter');
             for (let j = 0; j < buttons.length; j += 1) {
               if (this.lang === 'en') {
-                buttons[j].textContent = this.capsLock
+                buttons[j].innerHTML = this.capsLock
                   ? this.ROWS_SHIFT[j] : this.ROWS_SHIFT[j].toUpperCase();
               } else {
-                buttons[j].textContent = this.capsLock
+                buttons[j].innerHTML = this.capsLock
                   ? this.RUS_ROWS_SHIFT[j] : this.RUS_ROWS_SHIFT[j].toUpperCase();
               }
             }
@@ -126,9 +126,9 @@ export default class Keyboard {
             const buttons = document.querySelectorAll('.row__letter');
             for (let j = 0; j < buttons.length; j += 1) {
               if (this.lang === 'en') {
-                buttons[j].textContent = this.capsLock ? this.ROWS[j].toUpperCase() : this.ROWS[j];
+                buttons[j].innerHTML = this.capsLock ? this.ROWS[j].toUpperCase() : this.ROWS[j];
               } else {
-                buttons[j].textContent = this.capsLock
+                buttons[j].innerHTML = this.capsLock
                   ? this.rusRows[j].toUpperCase() : this.rusRows[j];
               }
             }
