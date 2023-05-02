@@ -194,12 +194,14 @@ export default class Keyboard {
         this.value = `${this.value.slice(0, this.textarea.selectionStart)}\n${this.value.slice(this.textarea.selectionStart + 1, this.value.length)}`;
         buttons.forEach((item) => (item.textContent === 'ENTER' ? item.classList.add('active') : 0));
       } else if (event.code === 'ControlLeft') {
+        event.preventDefault();
         for (let i = 0; i < buttons.length; i += 1) {
           if (i === 55 && buttons[i].textContent === 'CTRL') {
             buttons[i].classList.add('active');
           }
         }
       } else if (event.code === 'ControlRight') {
+        event.preventDefault();
         for (let i = 0; i < buttons.length; i += 1) {
           if (i === 63 && buttons[i].textContent === 'CTRL') {
             buttons[i].classList.add('active');
@@ -213,12 +215,14 @@ export default class Keyboard {
           }
         }
       } else if (event.code === 'AltRight') {
+        event.preventDefault();
         for (let i = 0; i < buttons.length; i += 1) {
           if (i === 59 && buttons[i].textContent === 'ALT') {
             buttons[i].classList.add('active');
           }
         }
       } else if (event.key === 'Meta') {
+        event.preventDefault();
         for (let i = 0; i < buttons.length; i += 1) {
           if (buttons[i].textContent === 'WIN') {
             buttons[i].classList.add('active');
