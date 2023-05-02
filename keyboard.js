@@ -55,7 +55,9 @@ export default class Keyboard {
         case 'BACKSPACE':
           button.addEventListener('mousedown', () => {
             button.classList.add('active');
-            this.value = this.value.substring(0, this.value.length - 1);
+            this.value = this.textarea.value.slice(0, this.textarea.selectionStart - 1)
+            + this.textarea.value
+              .slice(this.textarea.selectionEnd, this.textarea.value.length);
             this.textarea.value = this.value;
           });
           break;
@@ -187,7 +189,9 @@ export default class Keyboard {
 
       if (event.key === 'Backspace') {
         event.preventDefault();
-        this.value = this.value.substring(0, this.value.length - 1);
+        this.value = this.textarea.value.slice(0, this.textarea.selectionStart - 1)
+        + this.textarea.value
+          .slice(this.textarea.selectionEnd, this.textarea.value.length);
         buttons.forEach((item) => (item.textContent === 'BACKSPACE' ? item.classList.add('active') : 0));
       } else if (event.key === 'Enter') {
         event.preventDefault();
